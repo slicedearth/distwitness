@@ -5,9 +5,16 @@
 The provided workflow runs daily at a non-round UTC minute and can also be
 started with `workflow_dispatch`. It reads trusted default-branch code, recovers
 compact prior state from a workflow cache when available, performs the live
-run, uploads generated output between jobs, and updates `gh-pages` only when
-public site content changes. The state file is never copied to the generated
-branch or Pages payload.
+run, uploads generated output between jobs, and deploys the audited static
+artefact through the `github-pages` environment. The state file is never copied
+to the Pages artefact.
+
+The checked-in schedule is `23 17 * * *`, so GitHub automatically requests one
+run each day at 17:23 UTC. This corresponds to 03:23 the following day in
+Melbourne standard time and 04:23 during daylight saving time. Scheduled start
+times are nominal: GitHub can delay runs during load and can drop sufficiently
+backlogged jobs. Use `workflow_dispatch` for supervised verification or
+recovery, not as a daily operating requirement.
 
 Normal findings do not fail the run. An inability to collect any configured
 package, invalid configuration/state, or output failure is operational and
@@ -85,14 +92,15 @@ raw responses, or operator data to persisted state.
    restore the preceding cache. Delete every matching cache only when a
    deliberate new baseline is required.
 4. Manually dispatch the workflow and inspect the collection summary.
-5. Confirm `gh-pages` contains only generated site files, `.nojekyll`, public
-   JSON, and reports. It must not contain `.distwitness-state` or `state.json`.
+5. Inspect the Pages deployment artefact and confirm it contains only generated
+   site files, `.nojekyll`, public JSON, and reports. It must not contain
+   `.distwitness-state` or `state.json`.
 6. Re-enable the schedule after the result is validated.
 
 GitHub may evict caches. If no cache is available, the next successful run
 establishes a new baseline without synthetic events. Record the continuity
 break. Never copy source, `.github/workflows`, secrets, caches, state files, raw
-responses, or package archives to `gh-pages`.
+responses, or package archives to the Pages artefact.
 
 ## Retention and state rotation
 
@@ -128,32 +136,34 @@ advisory database. DistWitness should link to, not overwrite, upstream records.
 
 ## Pages enablement
 
-After the first generated branch exists, set repository Pages to **Deploy from a
-branch**, `gh-pages`, `/ (root)`. This is a manual repository setting. Confirm
-the final Pages URL before adding any “live” claim to public documentation.
+Set repository Pages to **GitHub Actions**. The deployment job uses the
+`github-pages` environment, receives only the already-audited generated
+artefact, and has `pages: write` plus `id-token: write` without repository write
+permission. Manually dispatch the scheduled workflow once and confirm the
+deployment URL before adding any “live” claim to public documentation.
 
 Forks do not run schedules by default. Fork owners must explicitly enable
 Actions, choose their own Pages settings, and understand that the watchlist and
 findings become public.
 
-GitHub may disable scheduled workflows after repository inactivity. Re-enable
-the workflow in the Actions tab and run a manual dispatch to validate state and
-permissions.
+GitHub disables scheduled workflows in public repositories after 60 days
+without repository activity. Re-enable the workflow in the Actions tab and run
+a manual dispatch to validate state and permissions.
 
 ## Incident response
 
 For suspected generated-site or workflow compromise:
 
 1. Disable the scheduled workflow and Pages.
-2. Preserve the relevant source and generated branch commits, Actions logs,
-   and state-cache key metadata.
+2. Preserve the relevant source commit, Pages deployment artefact, Actions
+   logs, and state-cache key metadata.
 3. Rotate or revoke affected credentials through GitHub; DistWitness defines no
    additional secret.
-4. Compare workflow/action pins and generated-branch contents with a known-good
-   source commit.
+4. Compare workflow/action pins and deployment artefact contents with a
+   known-good source commit.
 5. Repair on `main`, run the full offline gate, then perform a manual live run.
-6. Rebuild `gh-pages` after restoring a trusted workflow cache or establish a
-   documented new baseline.
+6. Redeploy after restoring a trusted workflow cache or establish a documented
+   new baseline.
 7. Publish a factual incident note without overstating affected packages.
 
 For a source-data incident, preserve explicit unavailable/stale states and link

@@ -86,6 +86,7 @@ CI has read-only contents permission and uses fixture data. The scheduled
 collection job also has read-only contents permission, restores and refreshes a
 workflow cache containing compact state, and produces a site artefact. The cache
 is operational continuity rather than confidential storage and never contains
-secrets or raw responses. A separate publishing job has `contents: write`,
-receives only generated public files, and updates `gh-pages`. The generated
-branch contains no state, source, or workflow files.
+secrets or raw responses. A separate deployment job has `pages: write` and
+`id-token: write` without repository write permission, receives only generated
+public files, and deploys through the protected `github-pages` environment. The
+Pages artefact contains no state, source, or workflow files.
