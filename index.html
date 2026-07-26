@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; base-uri 'none'; connect-src 'none'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'"
+    >
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f2ede3">
+    <title>Overview · DistWitness</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="alternate" type="application/atom+xml" title="DistWitness feed" href="feed.xml">
+    <script src="assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html" aria-label="DistWitness overview">
+          <img class="brand-mark" src="assets/logo.svg" width="44" height="44" alt="">
+          <span class="brand-copy">
+            <strong>DistWitness</strong>
+            <small>release evidence ledger</small>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Overview</a>
+          <a href="methodology.html">Methodology</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="feed.xml">Atom</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="shell">
+  <section class="hero" aria-labelledby="page-heading">
+    <div class="hero-copy">
+      <p class="eyebrow">Python release evidence</p>
+      <h1 id="page-heading">See what changed. Keep the receipt.</h1>
+      <p class="lede">
+        DistWitness records bounded PyPI, provenance, and OSV metadata as a
+        reviewable timeline. It observes release evidence without executing package code.
+      </p>
+      <div class="status-line">
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong>Sources complete for the latest run</strong>
+      </div>
+    </div>
+    <aside class="hero-ledger" aria-label="Current ledger summary">
+      <p class="ledger-kicker">Observation record</p>
+      <strong class="ledger-id">DW / CURRENT</strong>
+      <dl>
+        <div><dt>Packages</dt><dd>25</dd></div>
+        <div><dt>Changes</dt><dd>0</dd></div>
+        <div><dt>Generated</dt><dd><time datetime="2026-07-26T18:47:01.153801Z">2026-07-26</time></dd></div>
+      </dl>
+      <p class="ledger-note">Evidence for review, never a safety verdict.</p>
+    </aside>
+  </section>
+
+  <section class="identity-strip" aria-label="DistWitness method">
+    <p><span>01</span> Observe bounded metadata</p>
+    <p><span>02</span> Compare deterministic state</p>
+    <p><span>03</span> Preserve review evidence</p>
+  </section>
+
+  <section aria-labelledby="run-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Current observation</p>
+        <h2 id="run-heading">Source health</h2>
+      </div>
+      <p class="timestamp">
+        Generated <time datetime="2026-07-26T18:47:01.153801Z" data-local-time>2026-07-26T18:47:01.153801Z</time>
+        · <a href="data/health.json">Health JSON</a>
+      </p>
+    </div>
+    <div class="health-grid">
+        <article class="health-card">
+          <p>pypi</p>
+          <strong class="health-value health-available">available</strong>
+            <span class="health-detail">
+              1 of 1 retained run observations complete<br>
+              25 of 25 package checks without recorded source errors<br>
+              baseline
+            </span>
+        </article>
+        <article class="health-card">
+          <p>pypi integrity</p>
+          <strong class="health-value health-available">available</strong>
+            <span class="health-detail">
+              1 of 1 retained run observations complete<br>
+              25 of 25 package checks without recorded source errors<br>
+              baseline
+            </span>
+        </article>
+        <article class="health-card">
+          <p>osv</p>
+          <strong class="health-value health-available">available</strong>
+            <span class="health-detail">
+              1 of 1 retained run observations complete<br>
+              25 of 25 package checks without recorded source errors<br>
+              baseline
+            </span>
+        </article>
+      <article class="health-card">
+        <p>Last complete run</p>
+        <strong>
+            <time datetime="2026-07-26T18:47:01.153801Z" data-local-time>2026-07-26T18:47:01.153801Z</time>
+        </strong>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="packages-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Watchlist</p>
+        <h2 id="packages-heading">25 packages</h2>
+      </div>
+    </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Package</th>
+              <th scope="col">Selected version</th>
+              <th scope="col">Release state</th>
+              <th scope="col">Provenance</th>
+              <th scope="col">Advisories</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/anyio.html">anyio</a>
+                  <small>anyio</small>
+                </th>
+                <td data-label="Selected version"><code>4.14.2</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/build.html">build</a>
+                  <small>build</small>
+                </th>
+                <td data-label="Selected version"><code>1.5.1</code></td>
+                <td data-label="Release state">
+<span class="pill urgent">fully yanked</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/certifi.html">certifi</a>
+                  <small>certifi</small>
+                </th>
+                <td data-label="Selected version"><code>2026.7.22</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/click.html">click</a>
+                  <small>click</small>
+                </th>
+                <td data-label="Selected version"><code>8.4.2</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/cryptography.html">cryptography</a>
+                  <small>cryptography</small>
+                </th>
+                <td data-label="Selected version"><code>49.0.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/fastapi.html">fastapi</a>
+                  <small>fastapi</small>
+                </th>
+                <td data-label="Selected version"><code>0.140.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/httpcore.html">httpcore</a>
+                  <small>httpcore</small>
+                </th>
+                <td data-label="Selected version"><code>1.0.9</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/httpx.html">httpx</a>
+                  <small>httpx</small>
+                </th>
+                <td data-label="Selected version"><code>0.28.1</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/idna.html">idna</a>
+                  <small>idna</small>
+                </th>
+                <td data-label="Selected version"><code>3.18</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/jinja2.html">Jinja2</a>
+                  <small>jinja2</small>
+                </th>
+                <td data-label="Selected version"><code>3.1.6</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/mypy.html">mypy</a>
+                  <small>mypy</small>
+                </th>
+                <td data-label="Selected version"><code>2.3.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/packaging.html">packaging</a>
+                  <small>packaging</small>
+                </th>
+                <td data-label="Selected version"><code>26.2</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/pluggy.html">pluggy</a>
+                  <small>pluggy</small>
+                </th>
+                <td data-label="Selected version"><code>1.6.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/pydantic.html">pydantic</a>
+                  <small>pydantic</small>
+                </th>
+                <td data-label="Selected version"><code>2.13.4</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/pyopenssl.html">pyOpenSSL</a>
+                  <small>pyopenssl</small>
+                </th>
+                <td data-label="Selected version"><code>26.3.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/pytest.html">pytest</a>
+                  <small>pytest</small>
+                </th>
+                <td data-label="Selected version"><code>9.1.1</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/pyyaml.html">PyYAML</a>
+                  <small>pyyaml</small>
+                </th>
+                <td data-label="Selected version"><code>6.0.3</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/requests.html">requests</a>
+                  <small>requests</small>
+                </th>
+                <td data-label="Selected version"><code>2.34.2</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/rich.html">rich</a>
+                  <small>rich</small>
+                </th>
+                <td data-label="Selected version"><code>15.0.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/ruff.html">ruff</a>
+                  <small>ruff</small>
+                </th>
+                <td data-label="Selected version"><code>0.16.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/starlette.html">starlette</a>
+                  <small>starlette</small>
+                </th>
+                <td data-label="Selected version"><code>1.3.1</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/typer.html">typer</a>
+                  <small>typer</small>
+                </th>
+                <td data-label="Selected version"><code>0.27.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+not reported                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/urllib3.html">urllib3</a>
+                  <small>urllib3</small>
+                </th>
+                <td data-label="Selected version"><code>2.7.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/uvicorn.html">uvicorn</a>
+                  <small>uvicorn</small>
+                </th>
+                <td data-label="Selected version"><code>0.51.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/wheel.html">wheel</a>
+                  <small>wheel</small>
+                </th>
+                <td data-label="Selected version"><code>0.47.0</code></td>
+                <td data-label="Release state">
+<span class="pill">available</span>                </td>
+                <td data-label="Provenance">
+present for some files                </td>
+                <td data-label="Advisories">0</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+  </section>
+
+<section id="changes" aria-labelledby="events-heading">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Retained timeline</p>
+      <h2 id="events-heading">Recent changes</h2>
+    </div>
+    <p><a href="data/events.json">Public JSON</a> · <a href="reports/latest.md">Markdown digest</a></p>
+  </div>
+    <div class="empty-state">
+      <h3>No changes detected yet</h3>
+      <p>The first successful observation establishes a baseline. Identical later runs do not create duplicate events.</p>
+    </div>
+</section>    </main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>Evidence-backed release metadata changes. Review signals, not verdicts.</p>
+        <p><a href="https://github.com/slicedearth/distwitness">Source</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

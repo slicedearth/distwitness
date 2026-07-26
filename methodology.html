@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; base-uri 'none'; connect-src 'none'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'"
+    >
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f2ede3">
+    <title>Methodology · DistWitness</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="alternate" type="application/atom+xml" title="DistWitness feed" href="feed.xml">
+    <script src="assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="index.html" aria-label="DistWitness overview">
+          <img class="brand-mark" src="assets/logo.svg" width="44" height="44" alt="">
+          <span class="brand-copy">
+            <strong>DistWitness</strong>
+            <small>release evidence ledger</small>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Overview</a>
+          <a href="methodology.html">Methodology</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="feed.xml">Atom</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="shell">
+  <section class="hero compact" aria-labelledby="page-heading">
+    <p class="eyebrow">Definitions and limits</p>
+    <h1 id="page-heading">Methodology</h1>
+    <p class="lede">Deterministic comparisons of bounded public metadata, with incomplete sources kept visibly incomplete.</p>
+  </section>
+  <article class="prose">
+    <h2>What is observed</h2>
+    <p>DistWitness uses PyPI's JSON Index API to select the highest eligible PEP 440 version, retrieves compact metadata from the documented release-specific JSON endpoint, asks PyPI for per-file reported provenance, and asks OSV about the exact selected package version.</p>
+    <h2>What a change means</h2>
+    <p>A change means that two normalised observations differed. Informational, review, and urgent labels prioritise human attention; they are not probability estimates or security scores.</p>
+    <h2>Incomplete data</h2>
+    <p>Absent, unsupported, unavailable, failed, and malformed provenance responses remain distinct. An incomplete OSV response cannot create an advisory-removal event. Stale retained data stays visible when a fresh value cannot be verified.</p>
+    <h2>What is not established</h2>
+    <p>DistWitness does not download, install, import, unpack, execute, or scan package code. It cannot establish that a package is safe, malicious, trustworthy, compromised, or suitable for a particular use.</p>
+    <h2>Sources</h2>
+    <p>Release discovery comes from PyPI's documented Index API. Selected-release and file metadata come from PyPI's documented release-specific JSON and Integrity APIs. Advisory identifiers and bounded metadata come from OSV. Each finding links to an authoritative record; no third-party advisory body text is mirrored.</p>
+  </article>
+    </main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>Evidence-backed release metadata changes. Review signals, not verdicts.</p>
+        <p><a href="https://github.com/slicedearth/distwitness">Source</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

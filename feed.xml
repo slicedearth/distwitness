@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://github.com/slicedearth/distwitness</id>
+  <title>DistWitness change feed</title>
+  <link href="https://slicedearth.github.io/distwitness/" rel="alternate" type="text/html" />
+  <link href="https://slicedearth.github.io/distwitness/feed.xml" rel="self" type="application/atom+xml" />
+  <updated>2026-07-26T18:47:01.153801Z</updated>
+  <author>
+    <name>DistWitness</name>
+  </author>
+</feed>
