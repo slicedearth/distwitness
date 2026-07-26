@@ -9,7 +9,8 @@ automatically.
 “Private state” below means an internal application contract rather than a
 public JSON API. It is not a confidentiality label. Local state is ignored by
 Git, while scheduled state is held in a workflow cache and excluded from
-`gh-pages`; neither location may contain secrets or private package data.
+the Pages deployment artefact; neither location may contain secrets or private
+package data.
 
 ## Current versions
 
@@ -80,9 +81,9 @@ Malformed state, mixed records that cannot satisfy the target contract, and
 unknown root schema versions fail closed. DistWitness leaves the original file
 untouched and does not silently establish a new baseline.
 
-Before deployment, retain generated-branch history so an operator can restore a
-known-good state commit. Recovery procedures are in
-[`OPERATIONS.md`](OPERATIONS.md).
+Before deployment, preserve trustworthy state-cache continuity or a private
+state archive when policy requires it. The generated Pages artefact is not a
+state backup. Recovery procedures are in [`OPERATIONS.md`](OPERATIONS.md).
 
 Generated public JSON is derived output and is not read back into private state.
 Consumers must reject unsupported major contract changes or explicitly add

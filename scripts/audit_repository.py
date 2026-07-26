@@ -76,12 +76,24 @@ def _workflow_contract_problems(root: Path) -> list[str]:
     for required in ("actions/cache/restore@", "actions/cache/save@"):
         if required not in scheduled_text:
             problems.append(f"{scheduled}: missing workflow state-cache boundary")
+    for required in (
+        "actions/configure-pages@",
+        "actions/upload-pages-artifact@",
+        "actions/deploy-pages@",
+        "pages: write",
+        "id-token: write",
+        "name: github-pages",
+    ):
+        if required not in scheduled_text:
+            problems.append(f"{scheduled}: missing Pages deployment boundary")
     for prohibited in (
         "git show FETCH_HEAD:.distwitness-state/state.json",
         "cp state/state.json generated",
+        "git push origin gh-pages",
+        "contents: write",
     ):
         if prohibited in scheduled_text:
-            problems.append(f"{scheduled}: state would enter the public branch")
+            problems.append(f"{scheduled}: prohibited deployment operation")
     return problems
 
 

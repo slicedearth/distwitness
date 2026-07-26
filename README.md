@@ -212,29 +212,30 @@ Then open `http://127.0.0.1:8080/`.
 
 ## GitHub Pages and scheduled operation
 
-The included scheduled workflow is intentionally inactive until this local
-repository is pushed and configured on GitHub. Once a public
-`slicedearth/distwitness` repository exists:
+For a new installation, once a public `slicedearth/distwitness` repository
+exists:
 
 1. Push reviewed source to the default `main` branch.
-2. Run the **Scheduled DistWitness scan** workflow manually.
-3. The first successful publishing job creates the generated `gh-pages` branch.
-4. In repository **Settings → Pages**, select “Deploy from a branch,” then
-   choose `gh-pages` and `/ (root)`.
-5. Confirm the published files contain only generated site assets, public JSON,
-   reports, and `.nojekyll`.
+2. In repository **Settings → Pages**, select **GitHub Actions** as the source.
+3. Run the **Scheduled DistWitness scan** workflow manually.
+4. Confirm the successful deployment environment and final Pages URL.
+5. Inspect the downloaded deployment artefact when needed; it must contain only
+   generated site assets, public JSON, reports, and `.nojekyll`.
 
-The daily schedule uses a non-round UTC minute. The collection job runs trusted
-default-branch code with read-only contents permission. A separate publishing
-job receives only generated artefacts and has narrowly scoped `contents: write`
-permission. Pull-request CI uses fixtures and performs no required live API
-calls.
+The workflow runs automatically each day at `17:23 UTC`; the manual trigger is
+for initial enablement, supervised verification, and recovery. Scheduled start
+times are nominal because GitHub can delay or drop queued runs under load. The
+collection job runs trusted default-branch code with read-only contents
+permission. A separate deployment job receives only generated artefacts and
+has narrowly scoped `pages: write` and `id-token: write` permissions, with no
+repository write permission. Pull-request CI uses fixtures and performs no
+required live API calls.
 
-GitHub may disable schedules after prolonged repository inactivity. Re-enable
-the workflow from the Actions tab and run `workflow_dispatch` once. Forks do
-not run scheduled workflows by default and must deliberately enable Actions
-and Pages. Detailed recovery and rotation procedures are in
-[docs/OPERATIONS.md](docs/OPERATIONS.md).
+GitHub disables scheduled workflows in public repositories after 60 days
+without repository activity. Re-enable the workflow from the Actions tab and
+run `workflow_dispatch` once. Forks do not run scheduled workflows by default
+and must deliberately enable Actions and Pages. Detailed recovery and rotation
+procedures are in [docs/OPERATIONS.md](docs/OPERATIONS.md).
 
 ## Data, privacy, and security
 

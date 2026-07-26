@@ -6,14 +6,14 @@ Review date: 2026-07-26
 
 DistWitness trusts reviewed code and configuration on the default branch. It
 does not trust PyPI/OSV responses, saved state, monitored package metadata,
-workflow-cache contents, generated-branch contents, network availability, or
+workflow-cache contents, generated Pages artefacts, network availability, or
 pull-request code.
 
 ## Assets
 
 - Integrity of generated findings and the public site
 - Integrity and recoverability of cached operational state
-- The GitHub Actions write token used by the publishing job
+- The GitHub Pages deployment identity and narrowly scoped token permissions
 - User trust in evidence and limitations
 - Availability and bounded duration of scheduled scans
 - Integrity of source code, dependency resolution, and workflow definitions
@@ -120,14 +120,15 @@ Mitigations:
 - collection and publishing are separate jobs and artefacts;
 - cached state contains no credentials, raw responses, private indexes, or
   operator data and is not treated as a confidentiality boundary;
-- the Pages payload explicitly excludes state and prior state-branch paths;
-- only the publishing job receives `contents: write`;
+- the Pages payload explicitly excludes state and repository internals;
+- only the deployment job receives `pages: write` and `id-token: write`, with
+  no repository write permission;
 - official Actions are pinned to full commit SHAs with release-tag comments;
-- the publishing job runs no project collector and copies only a generated
+- the deployment job runs no project collector and receives only a generated
   artefact;
 - the token is not placed in a remote URL or printed;
 - concurrency permits only one scheduled publishing run;
-- the generated branch is audited to exclude workflows and source.
+- the generated Pages artefact is audited to exclude workflows and source.
 
 ### Workflow-cache disclosure or loss
 
@@ -143,7 +144,7 @@ Mitigations:
 - cache restore and save use unique run keys, a project-specific prefix, and a
   full-SHA-pinned official Action;
 - a missing cache creates a documented new baseline without synthetic events;
-- state is never copied to `gh-pages` or the generated site artefact.
+- state is never copied to the Pages deployment artefact.
 
 ### Compromised Actions or dependencies
 
@@ -153,7 +154,7 @@ Mitigations:
 - modest permissively licensed direct dependencies with upper major bounds;
 - fixture-based tests, `pip-audit`, Ruff security rules, mypy, package builds,
   and dependency review;
-- no unreviewed third-party Pages deployment action.
+- only reviewed, full-SHA-pinned official Pages deployment Actions.
 
 Residual risk: a pinned action or dependency can still be compromised at its
 pinned revision. Changes require review and CI.
