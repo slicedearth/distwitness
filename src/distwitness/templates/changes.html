@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Overview</a> / Change archive</nav>
+  <section class="hero compact archive-hero" aria-labelledby="page-heading">
+    <div class="hero-copy">
+      <p class="eyebrow">Observation ledger</p>
+      <h1 id="page-heading">Change archive</h1>
+      <p class="lede">Page {{ pagination.current_page }} of {{ pagination.page_count }} in the retained evidence timeline.</p>
+    </div>
+  </section>
+  {% include "_events.html" %}
+{% endblock %}

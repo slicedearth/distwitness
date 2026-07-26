@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero" aria-labelledby="page-heading">
+    <div class="hero-copy">
+      <p class="eyebrow">Python release evidence</p>
+      <h1 id="page-heading">See what changed. Keep the receipt.</h1>
+      <p class="lede">
+        DistWitness records bounded PyPI, provenance, and OSV metadata as a
+        reviewable timeline. It observes release evidence without executing package code.
+      </p>
+      <div class="status-line">
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong>{{ status }}</strong>
+      </div>
+    </div>
+    <aside class="hero-ledger" aria-label="Current ledger summary">
+      <p class="ledger-kicker">Observation record</p>
+      <strong class="ledger-id">DW / CURRENT</strong>
+      <dl>
+        <div><dt>Packages</dt><dd>{{ packages|length }}</dd></div>
+        <div><dt>Changes</dt><dd>{{ event_total }}</dd></div>
+        <div><dt>Generated</dt><dd><time datetime="{{ generated_at|utc }}">{{ generated_at.strftime("%Y-%m-%d") }}</time></dd></div>
+      </dl>
+      <p class="ledger-note">Evidence for review, never a safety verdict.</p>
+    </aside>
+  </section>
+
+  <section class="identity-strip" aria-label="DistWitness method">
+    <p><span>01</span> Observe bounded metadata</p>
+    <p><span>02</span> Compare deterministic state</p>
+    <p><span>03</span> Preserve review evidence</p>
+  </section>
+
+  <section aria-labelledby="run-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Current observation</p>
+        <h2 id="run-heading">Source health</h2>
+      </div>
+      <p class="timestamp">
+        Generated <time datetime="{{ generated_at|utc }}" data-local-time>{{ generated_at|utc }}</time>
+        · <a href="data/health.json">Health JSON</a>
+      </p>
+    </div>
+    <div class="health-grid">
+      {% for source, value in source_health.items() %}
+        <article class="health-card">
+          <p>{{ source|label }}</p>
+          <strong class="health-value health-{{ value.current_status }}">{{ value.current_status|label }}</strong>
+          {% if value.observed_runs %}
+            <span class="health-detail">
+              {{ value.available_runs }} of {{ value.observed_runs }} retained run observations complete<br>
+              {{ value.successful_package_checks }} of {{ value.checked_package_checks }} package checks without recorded source errors<br>
+              {{ value.maturity }}
+            </span>
+          {% else %}
+            <span class="health-detail">No retained measurement history yet.</span>
+          {% endif %}
+        </article>
+      {% endfor %}
+      <article class="health-card">
+        <p>Last complete run</p>
+        <strong>
+          {% if last_successful_run %}
+            <time datetime="{{ last_successful_run|utc }}" data-local-time>{{ last_successful_run|utc }}</time>
+          {% else %}
+            not yet available
+          {% endif %}
+        </strong>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="packages-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Watchlist</p>
+        <h2 id="packages-heading">{{ packages|length }} packages</h2>
+      </div>
+    </div>
+    {% if packages %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Package</th>
+              <th scope="col">Selected version</th>
+              <th scope="col">Release state</th>
+              <th scope="col">Provenance</th>
+              <th scope="col">Advisories</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for package in packages %}
+              {% set provenance_states = package.release.files|map(attribute="provenance.state")|list %}
+              <tr>
+                <th scope="row" data-label="Package">
+                  <a href="packages/{{ package.name }}.html">{{ package.display_name }}</a>
+                  <small>{{ package.name }}</small>
+                </th>
+                <td data-label="Selected version"><code>{{ package.release.version }}</code></td>
+                <td data-label="Release state">
+                  {% if package.release.yanked %}<span class="pill urgent">fully yanked</span>{% else %}<span class="pill">available</span>{% endif %}
+                </td>
+                <td data-label="Provenance">
+                  {% if "present" in provenance_states %}present for some files{% elif "absent" in provenance_states %}not reported{% else %}data unavailable{% endif %}
+                </td>
+                <td data-label="Advisories">{{ package.vulnerabilities|length }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h3>No production snapshot exists yet</h3>
+        <p>Run a live scan to establish the first real baseline. Synthetic findings are never placed here.</p>
+      </div>
+    {% endif %}
+  </section>
+
+  {% include "_events.html" %}
+{% endblock %}

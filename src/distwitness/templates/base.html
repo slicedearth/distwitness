@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; base-uri 'none'; connect-src 'none'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'"
+    >
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f2ede3">
+    <title>{{ page_title }} · {{ title }}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ base_url }}assets/logo.svg">
+    <link rel="stylesheet" href="{{ base_url }}assets/styles.css">
+    <link rel="alternate" type="application/atom+xml" title="{{ title }} feed" href="{{ base_url }}feed.xml">
+    <script src="{{ base_url }}assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="{{ base_url }}index.html" aria-label="{{ title }} overview">
+          <img class="brand-mark" src="{{ base_url }}assets/logo.svg" width="44" height="44" alt="">
+          <span class="brand-copy">
+            <strong>{{ title }}</strong>
+            <small>release evidence ledger</small>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="{{ base_url }}index.html">Overview</a>
+          <a href="{{ base_url }}methodology.html">Methodology</a>
+          <a href="{{ base_url }}privacy.html">Privacy</a>
+          <a href="{{ base_url }}feed.xml">Atom</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="shell">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>Evidence-backed release metadata changes. Review signals, not verdicts.</p>
+        <p><a href="{{ repository_url }}">Source</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

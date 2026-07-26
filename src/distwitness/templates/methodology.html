@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero compact" aria-labelledby="page-heading">
+    <p class="eyebrow">Definitions and limits</p>
+    <h1 id="page-heading">Methodology</h1>
+    <p class="lede">Deterministic comparisons of bounded public metadata, with incomplete sources kept visibly incomplete.</p>
+  </section>
+  <article class="prose">
+    <h2>What is observed</h2>
+    <p>DistWitness uses PyPI's JSON Index API to select the highest eligible PEP 440 version, retrieves compact metadata from the documented release-specific JSON endpoint, asks PyPI for per-file reported provenance, and asks OSV about the exact selected package version.</p>
+    <h2>What a change means</h2>
+    <p>A change means that two normalised observations differed. Informational, review, and urgent labels prioritise human attention; they are not probability estimates or security scores.</p>
+    <h2>Incomplete data</h2>
+    <p>Absent, unsupported, unavailable, failed, and malformed provenance responses remain distinct. An incomplete OSV response cannot create an advisory-removal event. Stale retained data stays visible when a fresh value cannot be verified.</p>
+    <h2>What is not established</h2>
+    <p>DistWitness does not download, install, import, unpack, execute, or scan package code. It cannot establish that a package is safe, malicious, trustworthy, compromised, or suitable for a particular use.</p>
+    <h2>Sources</h2>
+    <p>Release discovery comes from PyPI's documented Index API. Selected-release and file metadata come from PyPI's documented release-specific JSON and Integrity APIs. Advisory identifiers and bounded metadata come from OSV. Each finding links to an authoritative record; no third-party advisory body text is mirrored.</p>
+  </article>
+{% endblock %}

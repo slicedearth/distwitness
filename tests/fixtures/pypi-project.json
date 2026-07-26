@@ -1,0 +1,27 @@
+{
+  "info": {
+    "name": "Demo",
+    "version": "1.0.0",
+    "requires_python": ">=3.12",
+    "requires_dist": ["httpx>=0.28"],
+    "license_expression": "MIT",
+    "license": "MIT License",
+    "classifiers": ["License :: OSI Approved :: MIT License"],
+    "project_urls": {"Source": "https://example.test/demo"}
+  },
+  "urls": [
+    {
+      "filename": "demo-1.0.0-py3-none-any.whl",
+      "digests": {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "size": 200000,
+      "packagetype": "bdist_wheel",
+      "upload_time_iso_8601": "2026-07-26T04:00:00Z",
+      "python_version": "py3",
+      "requires_python": ">=3.12",
+      "yanked": false,
+      "yanked_reason": null
+    }
+  ]
+}

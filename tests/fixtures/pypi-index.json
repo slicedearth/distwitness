@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "_last-serial": 1,
+    "api-version": "1.4"
+  },
+  "name": "demo",
+  "project-status": {
+    "status": "active"
+  },
+  "versions": [
+    "1.0.0",
+    "2.0.0b1"
+  ],
+  "files": [
+    {
+      "filename": "demo-1.0.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/demo-1.0.0-py3-none-any.whl",
+      "hashes": {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "requires-python": ">=3.12",
+      "size": 200000,
+      "upload-time": "2026-07-26T04:00:00Z",
+      "yanked": false,
+      "provenance": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "attestation_bundles": [
+    {
+      "attestations": [{"version": 1}],
+      "publisher": {
+        "kind": "GitHub",
+        "repository": "example/demo",
+        "workflow": "release.yml",
+        "environment": "pypi"
+      }
+    }
+  ],
+  "version": 1
+}

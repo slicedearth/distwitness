@@ -1,0 +1,12 @@
+{
+  "id": "GHSA-test-0000",
+  "aliases": ["CVE-2026-0001"],
+  "published": "2026-07-20T00:00:00Z",
+  "modified": "2026-07-21T00:00:00Z",
+  "severity": [{"type": "CVSS_V3", "score": "9.8"}],
+  "references": [
+    {"type": "ADVISORY", "url": "https://osv.dev/vulnerability/GHSA-test-0000"}
+  ],
+  "summary": "This field is deliberately not retained.",
+  "details": "This field is deliberately not retained."
+}

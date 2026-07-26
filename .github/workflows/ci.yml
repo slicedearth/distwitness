@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Python 3.12 offline gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install project and verification tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Check formatting
+        run: ruff format --check .
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Type-check
+        run: mypy src tests
+
+      - name: Run offline tests with coverage
+        run: pytest --cov=distwitness --cov-report=term-missing
+
+      - name: Validate configuration
+        run: >-
+          python -m distwitness validate
+          --state-dir "${{ runner.temp }}/distwitness-empty-state"
+
+      - name: Build empty-state static site
+        run: >-
+          python -m distwitness build
+          --state-dir "${{ runner.temp }}/distwitness-empty-state"
+          --output-dir "${{ runner.temp }}/distwitness-site"
+
+      - name: Audit repository and generated public tree
+        run: >-
+          python scripts/audit_repository.py
+          --site "${{ runner.temp }}/distwitness-site"
+
+      - name: Build wheel and source distribution
+        run: python -m build
+
+      - name: Audit installed dependencies
+        run: pip-audit . --strict

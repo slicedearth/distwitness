@@ -1,0 +1,55 @@
+{% macro render_pagination(pagination, position) -%}
+  {% if pagination.page_count > 1 %}
+    <nav class="pagination pagination--{{ position }}" aria-label="Change pages {{ position }} results">
+      {% if pagination.previous_href %}
+        <a class="pagination__step" href="{{ pagination.previous_href }}" rel="prev">
+          <span aria-hidden="true">←</span>
+          <span class="pagination__step-label">Previous</span>
+        </a>
+      {% else %}
+        <span class="pagination__step" aria-disabled="true">
+          <span aria-hidden="true">←</span>
+          <span class="pagination__step-label">Previous</span>
+        </span>
+      {% endif %}
+
+      <span class="pagination__status">Page {{ pagination.current_page }} of {{ pagination.page_count }}</span>
+
+      <ol class="pagination__pages pagination__pages--desktop">
+        {% for item in pagination.desktop_items %}
+          {% if item is none %}
+            <li class="pagination__ellipsis" aria-hidden="true">…</li>
+          {% elif item.current %}
+            <li><span aria-current="page"><span class="visually-hidden">Page </span>{{ item.number }}</span></li>
+          {% else %}
+            <li><a href="{{ item.href }}" aria-label="Go to change page {{ item.number }}">{{ item.number }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+
+      <ol class="pagination__pages pagination__pages--mobile">
+        {% for item in pagination.mobile_items %}
+          {% if item is none %}
+            <li class="pagination__ellipsis" aria-hidden="true">…</li>
+          {% elif item.current %}
+            <li><span aria-current="page"><span class="visually-hidden">Page </span>{{ item.number }}</span></li>
+          {% else %}
+            <li><a href="{{ item.href }}" aria-label="Go to change page {{ item.number }}">{{ item.number }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+
+      {% if pagination.next_href %}
+        <a class="pagination__step" href="{{ pagination.next_href }}" rel="next">
+          <span class="pagination__step-label">Next</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      {% else %}
+        <span class="pagination__step" aria-disabled="true">
+          <span class="pagination__step-label">Next</span>
+          <span aria-hidden="true">→</span>
+        </span>
+      {% endif %}
+    </nav>
+  {% endif %}
+{%- endmacro %}

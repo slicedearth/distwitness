@@ -1,0 +1,114 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "distwitness"
+version = "0.4.0"
+description = "Deterministic, privacy-first change monitoring for Python package releases"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "slicedearth" }]
+keywords = ["pypi", "release-monitoring", "provenance", "osv", "supply-chain"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+  "httpx>=0.28.1,<1",
+  "Jinja2>=3.1.6,<4",
+  "packaging>=25,<27",
+  "pydantic>=2.11.7,<3",
+  "PyYAML>=6.0.2,<7",
+  "typer>=0.16.0,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2.2,<2",
+  "mypy>=1.17,<2",
+  "pip-audit>=2.9,<3",
+  "pytest>=8.4,<10",
+  "pytest-cov>=6.2,<8",
+  "respx>=0.22,<1",
+  "ruff>=0.12,<1",
+  "types-PyYAML>=6.0.12.20250516",
+]
+
+[project.scripts]
+distwitness = "distwitness.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/slicedearth/distwitness"
+Issues = "https://github.com/slicedearth/distwitness/issues"
+Source = "https://github.com/slicedearth/distwitness"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/distwitness"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/config",
+  "/docs",
+  "/src",
+  "/tests",
+  "/CONTRIBUTING.md",
+  "/DATA_SOURCES.md",
+  "/LICENSE",
+  "/PRIVACY.md",
+  "/README.md",
+  "/SECURITY.md",
+  "/THIRD_PARTY_NOTICES.md",
+]
+exclude = [
+  "/tests/fixtures/empty-state/.lock",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+extend-exclude = ["site-output", "state"]
+
+[tool.ruff.lint]
+select = ["A", "ASYNC", "B", "C4", "DTZ", "E", "F", "I", "ISC", "N", "PERF", "PIE", "PL", "PTH", "RUF", "S", "SIM", "T20", "UP", "W"]
+ignore = ["PLR0913"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "PLR2004"]
+"scripts/*.py" = ["PERF401", "T201"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+pretty = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers -ra"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+  "live: opt-in tests that contact documented public APIs",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["distwitness"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+skip_covered = true
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "if __name__ == .__main__.:",
+]

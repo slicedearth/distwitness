@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero compact" aria-labelledby="page-heading">
+    <p class="eyebrow">No visitor tracking</p>
+    <h1 id="page-heading">Privacy</h1>
+    <p class="lede">The generated site is static and makes no visitor-side network requests.</p>
+  </section>
+  <article class="prose">
+    <h2>Application data</h2>
+    <p>DistWitness processes public package-release, provenance, and vulnerability metadata. It does not create accounts, set cookies, collect analytics, add telemetry, fingerprint visitors, or provide contact forms.</p>
+    <h2>Hosting</h2>
+    <p>A static hosting provider may independently process ordinary access information under its own policies. DistWitness does not receive or store that information.</p>
+    <h2>Watchlists and findings</h2>
+    <p>A local watchlist remains in the repository where its operator places it. Publishing the generated site or repository makes the configured package names and generated findings public.</p>
+  </article>
+{% endblock %}

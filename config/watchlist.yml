@@ -1,0 +1,47 @@
+project:
+  title: DistWitness
+  retention_days: 180
+  max_packages: 50
+  include_prereleases_by_default: false
+  file_size_change_percent: 40
+  file_size_change_min_bytes: 100000
+
+packages:
+  # Core application contracts and rendering
+  - name: httpx
+  - name: pydantic
+    include_prereleases: false
+  - name: jinja2
+  - name: typer
+  - name: packaging
+  - name: PyYAML
+
+  # Transport, protocol and trust-store dependencies
+  - name: requests
+  - name: urllib3
+  - name: certifi
+  - name: idna
+  - name: anyio
+  - name: httpcore
+
+  # Cryptography and TLS interfaces
+  - name: cryptography
+    file_size_change_percent: 25
+  - name: pyOpenSSL
+
+  # CLI and terminal presentation
+  - name: click
+  - name: rich
+
+  # ASGI framework and serving surfaces
+  - name: fastapi
+  - name: starlette
+  - name: uvicorn
+
+  # Build, test and static-analysis tooling
+  - name: build
+  - name: wheel
+  - name: pytest
+  - name: pluggy
+  - name: ruff
+  - name: mypy

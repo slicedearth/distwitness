@@ -1,0 +1,66 @@
+{% from "_pagination.html" import render_pagination %}
+<section id="changes" aria-labelledby="events-heading">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Retained timeline</p>
+      <h2 id="events-heading">Recent changes</h2>
+    </div>
+    <p><a href="{{ base_url }}data/events.json">Public JSON</a> · <a href="{{ base_url }}reports/latest.md">Markdown digest</a></p>
+  </div>
+  {% if events %}
+    <p class="pagination-summary">
+      Showing {{ pagination.first_event }}-{{ pagination.last_event }} of {{ event_total }} retained changes.
+    </p>
+    <form class="filters" aria-label="Filter changes on this page" data-filter-form>
+      <label>Package
+        <select data-filter="package">
+          <option value="">All packages</option>
+          {% for package in packages %}<option value="{{ package.name }}">{{ package.name }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Event type
+        <select data-filter="type">
+          <option value="">All event types</option>
+          {% for event_type in event_types %}<option value="{{ event_type }}">{{ event_type|label }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Priority
+        <select data-filter="priority">
+          <option value="">All priorities</option>
+          <option value="informational">Informational</option>
+          <option value="review">Review</option>
+          <option value="urgent">Urgent</option>
+        </select>
+      </label>
+      <button type="reset">Clear</button>
+    </form>
+    <p class="filter-result" role="status" aria-live="polite" data-filter-result></p>
+    {{ render_pagination(pagination, "above") }}
+    <ol class="timeline" data-filter-list>
+      {% for event in events %}
+        <li
+          data-package="{{ event.package_name }}"
+          data-type="{{ event.event_type }}"
+          data-priority="{{ event.review_priority }}"
+        >
+          <article class="event-card priority-{{ event.review_priority }}">
+            <div class="event-meta">
+              <a href="{{ base_url }}packages/{{ event.package_name }}.html">{{ event.package_name }}</a>
+              <span class="pill {{ event.review_priority }}">{{ event.review_priority }}</span>
+              <time datetime="{{ event.detected_at|utc }}" data-local-time>{{ event.detected_at|utc }}</time>
+            </div>
+            <h3>{{ event.event_type|label }}</h3>
+            <p>{{ event.explanation }}</p>
+            <a href="{{ event.source_links[0] }}" rel="noreferrer noopener">Authoritative record</a>
+          </article>
+        </li>
+      {% endfor %}
+    </ol>
+    {{ render_pagination(pagination, "below") }}
+  {% else %}
+    <div class="empty-state">
+      <h3>No changes detected yet</h3>
+      <p>The first successful observation establishes a baseline. Identical later runs do not create duplicate events.</p>
+    </div>
+  {% endif %}
+</section>

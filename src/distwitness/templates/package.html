@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Overview</a> / {{ package.display_name }}</nav>
+  <section class="hero compact" aria-labelledby="package-heading">
+    <p class="eyebrow">Package detail</p>
+    <h1 id="package-heading">{{ package.display_name }}</h1>
+    <p class="lede"><code>{{ package.name }} {{ package.release.version }}</code></p>
+    <p><a href="{{ package.release.source_url }}" rel="noreferrer noopener">View authoritative PyPI release</a></p>
+  </section>
+
+  <section aria-labelledby="metadata-heading">
+    <div class="section-heading"><h2 id="metadata-heading">Current metadata</h2></div>
+    <dl class="facts">
+      <div><dt>Selected version</dt><dd><code>{{ package.release.version }}</code></dd></div>
+      <div><dt>Release state</dt><dd>{% if package.release.yanked %}fully yanked{% else %}available{% endif %}</dd></div>
+      <div><dt>Release discovery</dt><dd>{% if package.release_discovery == "pypi-index-v1" %}PyPI Index API v{{ package.index_api_version }}{% else %}legacy project JSON state{% endif %}</dd></div>
+      <div><dt>Requires Python</dt><dd>{{ package.requires_python or "not declared" }}</dd></div>
+      <div><dt>Advisories</dt><dd>{{ package.vulnerabilities|length }}</dd></div>
+      <div><dt>Observed</dt><dd><time datetime="{{ package.collected_at|utc }}" data-local-time>{{ package.collected_at|utc }}</time></dd></div>
+      <div><dt>License expression</dt><dd>{{ package.license_expression or "not declared" }}</dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="files-heading">
+    <div class="section-heading"><h2 id="files-heading">Release files</h2></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Filename</th><th scope="col">Type</th><th scope="col">Size</th><th scope="col">Yanked</th><th scope="col">Provenance</th></tr></thead>
+        <tbody>
+          {% for file in package.release.files %}
+            <tr>
+              <th scope="row" data-label="Filename"><code class="wrap">{{ file.filename }}</code></th>
+              <td data-label="Type">{{ file.package_type }}</td>
+              <td data-label="Size">{{ "{:,}".format(file.size) }} bytes</td>
+              <td data-label="Yanked">{{ "yes" if file.yanked else "no" }}</td>
+              <td data-label="Provenance"><a href="{{ file.provenance.source_url }}" rel="noreferrer noopener">{{ file.provenance.state|label }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="dependencies-heading">
+    <div class="section-heading"><h2 id="dependencies-heading">Declared dependencies</h2></div>
+    {% if package.requires_dist %}
+      <ul class="code-list">{% for requirement in package.requires_dist %}<li><code>{{ requirement }}</code></li>{% endfor %}</ul>
+    {% else %}<p>None declared in the available metadata.</p>{% endif %}
+  </section>
+
+  <section aria-labelledby="advisories-heading">
+    <div class="section-heading"><h2 id="advisories-heading">Known advisories for this exact version</h2></div>
+    {% if package.vulnerabilities %}
+      <ul class="plain-list">
+        {% for advisory in package.vulnerabilities %}
+          <li class="event-card">
+            <h3><a href="{{ advisory.source_url }}" rel="noreferrer noopener">{{ advisory.id }}</a></h3>
+            <p>Aliases: {{ advisory.aliases|join(", ") or "none reported" }}</p>
+            <p>Severity: {{ advisory.severity_label or "no reliable classification available" }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}<p>No advisory was returned for this exact version in the latest complete OSV observation. This is not proof that the version is safe.</p>{% endif %}
+  </section>
+
+  <section aria-labelledby="timeline-heading">
+    <div class="section-heading"><h2 id="timeline-heading">Change timeline</h2></div>
+    {% if events %}
+      <ol class="timeline">
+        {% for event in events %}
+          <li><article class="event-card priority-{{ event.review_priority }}"><div class="event-meta"><span class="pill {{ event.review_priority }}">{{ event.review_priority }}</span><time datetime="{{ event.detected_at|utc }}" data-local-time>{{ event.detected_at|utc }}</time></div><h3>{{ event.event_type|label }}</h3><p>{{ event.explanation }}</p></article></li>
+        {% endfor %}
+      </ol>
+    {% else %}<p>No retained changes for this package.</p>{% endif %}
+  </section>
+{% endblock %}
