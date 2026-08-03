@@ -57,8 +57,21 @@ def test_new_release_and_all_yanked_changes() -> None:
     events = _compare(snapshot(), snapshot(version="2.0.0", files=(new_file,)))
     assert events["new_release"].review_priority == ReviewPriority.INFORMATIONAL
     assert events["release_yanked_changed"].review_priority == ReviewPriority.URGENT
-    assert "distribution_file_added" in events
-    assert "distribution_file_removed" in events
+    assert "distribution_file_added" not in events
+    assert "distribution_file_removed" not in events
+
+
+def test_distribution_file_set_changes_are_compared_within_one_release() -> None:
+    old_file = release_file(filename="demo-1.0.0-old.whl")
+    new_file = release_file(filename="demo-1.0.0-new.whl")
+
+    events = _compare(
+        snapshot(files=(old_file,)),
+        snapshot(files=(new_file,)),
+    )
+
+    assert events["distribution_file_added"].new_value == new_file.filename
+    assert events["distribution_file_removed"].old_value == old_file.filename
 
 
 def test_same_filename_digest_and_immutable_metadata_changes_are_urgent() -> None:

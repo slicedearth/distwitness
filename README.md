@@ -48,6 +48,8 @@ service.
 - Fail-closed OSV handling: incomplete results cannot create advisory removals.
 - Stable evidence-derived event IDs, atomic state writes, writer locking,
   corruption detection, deduplication, and retention pruning.
+- Separate release and file semantics: distribution-file mutations are compared
+  only while the selected release version is unchanged.
 - Accessible generated HTML with no framework or external assets; core content
   works without JavaScript.
 - A custom evidence-ledger identity and locally bundled SVG mark, with no

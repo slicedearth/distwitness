@@ -22,6 +22,9 @@ LEGACY_STATE_SCHEMA_VERSION: Final = 1
 PHASE_TWO_STATE_SCHEMA_VERSION: Final = 2
 CURRENT_STATE_SCHEMA_VERSION: Final = 3
 MAX_HEALTH_RUNS: Final = 1_000
+_CROSS_RELEASE_FILE_EVENTS: Final = frozenset(
+    {"distribution_file_added", "distribution_file_removed"}
+)
 
 
 class StateError(RuntimeError):
@@ -134,11 +137,21 @@ def prune_events(
     now: datetime,
     retention_days: int,
 ) -> tuple[ChangeEvent, ...]:
-    """Prune by UTC detection time, deduplicate by ID, and order newest first."""
+    """Prune stale or invalid legacy events, deduplicate, and order newest first."""
 
     cutoff = now - timedelta(days=retention_days)
+    release_changes = {
+        (event.package_name, event.detected_at)
+        for event in events
+        if event.event_type == "new_release"
+    }
     by_id: dict[str, ChangeEvent] = {}
     for event in events:
+        if (
+            event.event_type in _CROSS_RELEASE_FILE_EVENTS
+            and (event.package_name, event.detected_at) in release_changes
+        ):
+            continue
         if event.detected_at >= cutoff:
             existing = by_id.get(event.id)
             if existing is None or event.detected_at > existing.detected_at:
