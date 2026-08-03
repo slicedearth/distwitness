@@ -24,7 +24,7 @@ from distwitness.storage import (
     prune_health_observations,
     save_state_atomic,
 )
-from tests.factories import NOW, snapshot
+from tests.factories import NOW, release_file, snapshot
 
 
 def _event() -> ChangeEvent:
@@ -183,6 +183,32 @@ def test_retention_prunes_and_deduplicates() -> None:
         retention_days=30,
     )
     assert pruned == (recent,)
+
+
+def test_retention_removes_legacy_cross_release_file_churn() -> None:
+    release_change = _event()
+    file_changes = compare_snapshots(
+        snapshot(files=(release_file(filename="demo-1.0.0-old.whl"),)),
+        snapshot(files=(release_file(filename="demo-1.0.0-new.whl"),)),
+        package_config=PackageConfig(name="demo"),
+        project_config=ProjectConfig(title="Test"),
+        detected_at=NOW,
+    )
+    assert prune_events(file_changes, now=NOW, retention_days=30) == tuple(
+        sorted(
+            file_changes,
+            key=lambda event: (event.detected_at, event.id),
+            reverse=True,
+        )
+    )
+
+    pruned = prune_events(
+        (*file_changes, release_change),
+        now=NOW,
+        retention_days=30,
+    )
+
+    assert pruned == (release_change,)
 
 
 def test_health_retention_preserves_bounded_complete_run_groups() -> None:

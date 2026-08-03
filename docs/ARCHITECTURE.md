@@ -45,11 +45,13 @@ flowchart LR
   download URLs or the deprecated project JSON `releases` field.
 - `osv.py` handles exact-version batch order, per-query pagination, bounded
   detail reads, and compact advisory metadata.
-- `compare.py` canonicalises evidence into stable events.
+- `compare.py` canonicalises evidence into stable events and compares
+  distribution-file mutations only within the same selected release version.
 - `storage.py` migrates known historical schema versions in memory, then
   validates, locks, prunes, deduplicates, and atomically replaces state without
-  resetting corrupt files. Event and source-health retention remain separately
-  bounded.
+  resetting corrupt files. Event pruning also removes legacy file add/remove
+  records that were produced by comparing different selected releases. Event
+  and source-health retention remain separately bounded.
 - `render.py` and `feed.py` generate escaped static outputs, including bounded
   20-event archive pages with deterministic nearby-page navigation.
 - `runner.py` preserves prior data across partial-source failures and records

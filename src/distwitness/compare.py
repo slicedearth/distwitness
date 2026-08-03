@@ -41,7 +41,8 @@ def compare_snapshots(
     events: list[ChangeEvent] = []
     release_link = new.release.source_url
 
-    if old.release.version != new.release.version:
+    release_changed = old.release.version != new.release.version
+    if release_changed:
         events.append(
             _event(
                 event_type="new_release",
@@ -87,8 +88,12 @@ def compare_snapshots(
             )
         )
 
-    old_files = {item.filename: item for item in old.release.files}
-    new_files = {item.filename: item for item in new.release.files}
+    old_files = (
+        {} if release_changed else {item.filename: item for item in old.release.files}
+    )
+    new_files = (
+        {} if release_changed else {item.filename: item for item in new.release.files}
+    )
     for filename in sorted(new_files.keys() - old_files.keys()):
         item = new_files[filename]
         events.append(

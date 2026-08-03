@@ -62,6 +62,13 @@ Migration labels and an empty health baseline are collection provenance, not
 package changes, so they do not create change events or synthetic operational
 history.
 
+Event retention also removes historical `distribution_file_added` and
+`distribution_file_removed` records when a `new_release` event for the same
+package and observation proves that two different releases were compared. A
+successful run applies this deterministic cleanup before the next atomic state
+write. File-level mutations remain retained when the selected release version
+is unchanged.
+
 ## Public health contract
 
 `data/current.json` schema v3 exposes per-source summaries derived from retained

@@ -110,7 +110,7 @@ def test_baseline_change_and_repeat_run_are_deterministic(tmp_path: Path) -> Non
         now=NOW + timedelta(days=1),
         http=_http(changed_data),
     )
-    assert second.result.events_created >= 1
+    assert second.result.events_created == 1
     retained = load_state(state_dir).events
     assert any(event.event_type == "new_release" for event in retained)
 
